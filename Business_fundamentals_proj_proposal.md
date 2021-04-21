@@ -25,10 +25,7 @@ Proposed by Steven L. Truong
  
 #### MVP:
 - The recommending engine thats provides the next 5 movies that one might like in descending order. For example: if one has watched and liked *Pulp Fiction (1994) and Goodfellas (1990)*, the next five movies one might like could be:
-    1. Kill Bill: Vol. 1 (2003)
-    2. Inglourious Basterds (2009)
-    3. Django Unchained (2012)
-    4. The Hateful Eight (2015)
-    5. The Shawshank Redemption (1994)
+
+![](https://github.com/luongtruong77/Business_proj_RE/blob/main/figures/recommended_movies_baseline.png?raw=true)
 
 *Note:* I am the one who's watched and liked *Pulp Fiction (1994) and Goodfellas (1990)* and the results are very good. I have watched (multiple times) and love these 5 movies.
