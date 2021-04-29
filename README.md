@@ -1,31 +1,73 @@
-# Project Propsal
-## Improve the streaming service's recommender engine
+# Optimizing Fandor's Recommender Engine
 ---
 
-Proposed by Steven L. Truong
+Steve L Truong
 
+
+## Abstract
 ---
 
-### Who is this project for?
+In this project, I will build and optimize the recommender's engine for [Fandor](https://relaunch.fandor.com/) - a streaming service dedicated to hardcore film lovers. The raw [dataset](https://grouplens.org/datasets/movielens/) is obtained from [GroupLens](https://grouplens.org/), explored and cleaned using **Google Sheets** and **Tableau***; and finally, **Python** comes into play to help to build recommender's engine using the most efficient algorithms available.
+
+## Design
+---
+
+##### Who is this project for?
 - [Fandor](https://relaunch.fandor.com/) is a streaming service dedicated to hardcore film lovers and currently is celebrating 10 years of streaming independent, art house, classic, and international films at the place where it all began. They'd just announced plans to expand to original programming after was acquired by [Cinedigm](https://en.wikipedia.org/wiki/Cinedigm) in 2021.
 - For hardcore Fandor's fans, they still are able to subscribe to Fandor channel through [Amazon Prime](https://www.amazon.com/gp/video/storefront/ref=sxts_1_0_edd32cad-acfd-4298-8c2a-68bae5fb7510?benefitId=fandor&ie=UTF8&pd_rd_r=a7ad5a14-cab9-47a7-8e46-3e2557c40ac1&pd_rd_w=1Gn0B&pd_rd_wg=DWsSU&pf_rd_p=edd32cad-acfd-4298-8c2a-68bae5fb7510&pf_rd_r=2H92VKSENCN2F80T7VJQ&qid=1614878606) with the price of $10/mo or $90/year; but in order to be an independent original programming and compete with huge sharks such as Netflix, Hulu, or Disney+ , the team needs to improve the customers' experiences through their recommender engine to avoid customer attrition.
 
-#### How does this project help?
-- It's very common that customers cancel their subscription after their free trail; however, once they commit to the service, how do we keep them from churning? The answer is as sample as to improve their experience by enhancing the **recommender system** to keep them using the service.
-- One of the most common customers' reactions is to feel the need to find a new movie, new show, or something similar to what they've watched. If we don't recommend them what they like, the next two or three times they see something pops up that is not in their liking, they will cancel the service and we lose customers.
+##### Why do we need to optimize the recommender's engine?
 
-#### Data description:
+- According to this [Deloitte article](https://www2.deloitte.com/us/en/insights/industry/technology/video-streaming-services-churn-rate.html): among customers who cut a streaming service, **62%** had signed up to watch a specific show then cancelled once they were done;  where **43%** of them cancelled the same day they decided they no longer wanted the service.
+- Among several reasons why they churned, about **21%** of them responded that the service *lacks of new content they are interested in watching* as of October 2020 ([Deloitte article](https://www2.deloitte.com/us/en/insights/industry/technology/video-streaming-services-churn-rate.html)).
+- According to survey conducted by Deloitte themselves, **27%** of responders say that they would be in the service if it has the release of an exclusive new movie or series they want to watch.
+
+##### The impact of this project
+
+- To avoid consumers churning from our platform, the simplest way to do is optimizing recommender's engine to provide the most relevant contents to them, as well as maintain their interests on our movies and shows.
+- By stacking and combining several modern and sophisicated algorithms (one of them was part of $1,000,000 Netflix Prize winning algorithms) to build the engine, this project's mission is to reduce the number of churning customers by **10%** when launched, and **15%** in the span of three months.
+
+
+## Data
+---
+
 - This [dataset](https://grouplens.org/datasets/movielens/) contains multiple small datatsets, and was put togetehr by the [GroupLens](https://movielens.org/) research group at the University of Minnesota (thanks to them) and contains of `100,000` ratings, `3,600` tags applied to `9,000` movies by `600` users. 
 - The features of our data include `userId, movieId, titles, genres, tags`, which are critical to analyze, visualize, and build models.
-- We will build models mainly using the techniques of `user-based collaborative filtering` and `item-based collaborative filtering` to improve the recommender system. Furthermore, if there are movies that are note rated by users (since we will use ratings as our primary attribute), we will use `K-Nearest Neighbor (KNN)` to group similar movies (in terms of genres or popularity) together and predict its ratings.
 
-#### Tools:
-- I will use Google Sheets and Tableau to clean, explore, aggregate, and visualize data.
-- I will build the baseline model using Python, pandas, numpy.
- 
-#### MVP:
-- The recommending engine thats provides the next 5 movies that one might like in descending order. For example: if one has watched and liked *Pulp Fiction (1994) and Goodfellas (1990)*, the next five movies one might like could be:
 
-![](https://github.com/luongtruong77/Business_proj_RE/blob/main/figures/recommended_movies_baseline.png?raw=true)
+## Algorithms
+---
 
-*Note:* I am the one who's watched and liked *Pulp Fiction (1994) and Goodfellas (1990)* and the results are very good. I have watched (multiple times) and love these 5 movies.
+##### Feature Engineering
+Extract *year* from the *name* and split *genres* into small *sub_genre* categories for further analysis.
+
+##### Building the engines
+I use several algorithms to build the models such as: content-based, user-based (KNN-inspired), item-based (KNN-inspired), SVD, and SVD++ (SVD++ is a part of the combination of algorithms that win $1,000,000 Netflix Prize on 2009).
+
+##### Evaluation
+- My go-to evaluating metric is **hit_rate** and **cumulative_hit_rate** since they will determine the best if customers click on the contents. Since the engine has not launched on production and we do not have customers to evaluate, I will use different metrics for the purpose of demonstration.
+- I will use Root Mean Squared Error **RMSE** and Mean Absolute Error **MAE** to compare **6** different algorithms.
+- Since the metrics are to measure errors, the lower the score, the better the algorithms:
+
+![](https://github.com/luongtruong77/Business_proj_RE/blob/main/figures/metrics_barchart.png?raw=true)
+- As the chart shows, SVD++ performs the best of them and Random performs the worst (as the name infers, random algorithm recommends contents to users *randomly*)
+
+## Tools
+---
+
+- Google Sheets and Tableau to clean, explore, aggregate, and visualize data.
+- Python packages (pandas, numpy, surprise, etc) to build and evaluate models.
+- SQL and Flask to deploy models to production.
+
+
+## Communication
+---
+
+- The presentation in pdf file is included to logically and visually convey the purpose, progress, and impacts of this project.
+- Here are the [Google Sheets Link](https://docs.google.com/spreadsheets/d/1N85J2wBuYa-jgn66R3Ab2LTL4pjiXfWVykor-DyLO0E/edit?usp=sharing) and [Tableau Dashboard](https://public.tableau.com/profile/luong.q.truong#!/vizhome/movies_16195550176570/Dashboard1) associated with this project.
+
+
+
+
+
+
